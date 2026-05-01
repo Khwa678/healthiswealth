@@ -1,0 +1,129 @@
+/* ─── Doctor Cards Styling (isolated, no conflict) ───────────────────── */
+
+.doctor-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+
+  transition: all 0.2s ease;
+}
+
+/* Hover effect */
+.doctor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Doctor image */
+.doctor-img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+
+  margin-bottom: 10px;
+  border: 2px solid var(--border);
+}
+
+/* Name */
+.doctor-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+/* Speciality */
+.doc-speciality {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* Location */
+.doc-location {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Experience */
+.doc-exp {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--brand-blue);
+  margin-top: 6px;
+}
+
+/* Optional badge (future use) */
+.doc-badge {
+  margin-top: 6px;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background: var(--brand-green-light);
+  color: var(--brand-green);
+}
+/* Fix spacing between cards */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* Ensure proper card spacing */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+/* Fix image spacing */
+.doctor-img {
+  display: block;
+  margin: 0 auto 10px auto;
+}
+
+/* Add spacing between text lines */
+.card p {
+  margin: 4px 0;
+}
+/* Keep your layout, just improve spacing */
+
+.doctor-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.doctor-item {
+  padding: 10px 6px;
+}
+
+/* Text spacing */
+.doctor-item h3 {
+  margin-bottom: 6px;
+  font-size: 16px;
+  color: var(--text-primary);
+}
+
+.doctor-item p {
+  margin: 3px 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* Divider line */
+.doctor-divider {
+  margin-top: 10px;
+  height: 1px;
+  background: var(--border);
+}
