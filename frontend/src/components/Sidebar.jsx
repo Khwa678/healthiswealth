@@ -7,6 +7,7 @@ const STATUS_COLORS = {
   NOT_YET_RECRUITING: 'badge-purple',
 };
 
+<<<<<<< HEAD
 export default function Sidebar({ 
   patientContext, 
   stats, 
@@ -18,6 +19,11 @@ export default function Sidebar({
   return (
     <aside className="sidebar">
       
+=======
+export default function Sidebar({ patientContext, stats, messageCount, onReset }) {
+  return (
+    <aside className="sidebar">
+>>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
       {/* Logo */}
       <div className="sidebar-logo">
         <span className="sidebar-logo-icon">🔬</span>
@@ -29,6 +35,7 @@ export default function Sidebar({
 
       <div className="sidebar-divider" />
 
+<<<<<<< HEAD
       {/* 🔥 NAVIGATION MENU */}
       <div className="sidebar-section">
         <h3 className="sidebar-section-title">Navigation</h3>
@@ -48,6 +55,8 @@ export default function Sidebar({
 
       <div className="sidebar-divider" />
 
+=======
+>>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
       {/* Patient context */}
       {patientContext ? (
         <div className="sidebar-section">
@@ -87,7 +96,11 @@ export default function Sidebar({
 
       <div className="sidebar-divider" />
 
+<<<<<<< HEAD
       {/* Stats */}
+=======
+      {/* Session stats */}
+>>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
       {stats && (
         <>
           <div className="sidebar-section">
@@ -139,7 +152,11 @@ export default function Sidebar({
             <span className="source-dot dot-amber" />
             <div>
               <span className="source-name">ClinicalTrials.gov</span>
+<<<<<<< HEAD
               <span className="source-desc">Active & completed trials</span>
+=======
+              <span className="source-desc">Active &amp; completed trials</span>
+>>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
             </div>
           </div>
         </div>
@@ -157,11 +174,16 @@ export default function Sidebar({
         </div>
       )}
 
+<<<<<<< HEAD
       {/* Footer */}
+=======
+      {/* Reset button */}
+>>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
       <div className="sidebar-footer">
         <button className="btn-reset" onClick={onReset}>
           ↩ New Session
         </button>
+<<<<<<< HEAD
 
         {onLogout && (
           <button className="btn-reset" onClick={onLogout}>
@@ -169,6 +191,8 @@ export default function Sidebar({
           </button>
         )}
 
+=======
+>>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
         <p className="sidebar-credit">Powered by open-source LLMs</p>
       </div>
     </aside>

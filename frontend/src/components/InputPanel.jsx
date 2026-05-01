@@ -15,6 +15,7 @@ export default function InputPanel({ onSend, loading, disabled, suggestions }) {
   const [showQuick, setShowQuick] = useState(false);
   const textareaRef = useRef(null);
 
+<<<<<<< HEAD
   // ✅ EXISTING AUTO RESIZE
   useEffect(() => {
     if (textareaRef.current) {
@@ -38,6 +39,15 @@ export default function InputPanel({ onSend, loading, disabled, suggestions }) {
     };
   }, [onSend, loading, disabled]);
 
+=======
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = Math.min(textareaRef.current.scrollHeight, 160) + 'px';
+    }
+  }, [value]);
+
+>>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
   const handleSend = () => {
     const trimmed = value.trim();
     if (!trimmed || loading || disabled) return;
@@ -58,8 +68,13 @@ export default function InputPanel({ onSend, loading, disabled, suggestions }) {
   };
 
   const handleSuggestion = (s) => {
+<<<<<<< HEAD
     // 🔥 IMPROVED: send directly instead of just filling
     onSend(s);
+=======
+    setValue(s);
+    textareaRef.current?.focus();
+>>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
   };
 
   return (
