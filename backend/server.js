@@ -8,7 +8,8 @@ const app = express();
 
 // ─── Middleware ──────────────────────────────────────────────────────────────
 app.use(cors({
-  origin: '*'
+  origin: '*',
+    methods: ['GET','POST','PUT','DELETE'],
 }));
 app.use(express.json({ limit: '10mb' }));
 app.use('/api/chat', require('./routes/chat'));
