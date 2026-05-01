@@ -49,7 +49,7 @@ I'll search thousands of peer-reviewed publications and active clinical trials t
 
     try {
       // const { data } = await axios.post('/api/chat', {
-      const baseURL = 'http://127.0.0.1:5000';
+      const baseURL = 'https://healthiswealth-6.onrender.com';
       const { data } = await axios.post(`${baseURL}/api/chat`, {
         sessionId,
         message: messageText,
@@ -57,7 +57,10 @@ I'll search thousands of peer-reviewed publications and active clinical trials t
         location: patientContext?.location,
         patientName: patientContext?.patientName,
         additionalContext: patientContext?.additionalContext,
-      });
+      },{
+          headers: {
+    "Content-Type": "application/json"
+     } });
 
       const assistantMsg = {
         id: uuidv4(),
