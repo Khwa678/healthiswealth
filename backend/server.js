@@ -8,8 +8,11 @@ const app = express();
 
 // ─── Middleware ──────────────────────────────────────────────────────────────
 app.use(cors({
-  origin: '*',
-    methods: ['GET','POST','PUT','DELETE'],
+  origin: [
+    "https://healthiswealth-7.onrender.com",
+    "http://localhost:5173"
+  ],
+  credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
 app.use('/api/chat', require('./routes/chat'));
