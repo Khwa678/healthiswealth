@@ -12,19 +12,13 @@
   "description": "",
   "dependencies": {
     "axios": "^1.15.2",
-<<<<<<< HEAD
     "bcryptjs": "^3.0.3",
-=======
->>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-rate-limit": "^8.4.1",
     "fast-xml-parser": "^5.7.2",
-<<<<<<< HEAD
     "jsonwebtoken": "^9.0.3",
-=======
->>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
     "mongoose": "^9.6.1",
     "uuid": "^14.0.0"
   }

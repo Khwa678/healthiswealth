@@ -1,55 +1,37 @@
-import { useState, useCallback } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import axios from 'axios';
-<<<<<<< HEAD
+import { useState, useCallback } from "react";
+import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 
-=======
->>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
-import Sidebar from './components/Sidebar.jsx';
-import ChatWindow from './components/ChatWindow.jsx';
-import InputPanel from './components/InputPanel.jsx';
-import OnboardingModal from './components/OnboardingModal.jsx';
-<<<<<<< HEAD
+import Sidebar from "./components/Sidebar.jsx";
+import ChatWindow from "./components/ChatWindow.jsx";
+import InputPanel from "./components/InputPanel.jsx";
+import OnboardingModal from "./components/OnboardingModal.jsx";
 
-// Auth Pages
-import Login from './Pages/Login';
-import Register from './Pages/Register';
+import Login from "./Pages/Login";
+import Register from "./Pages/Register";
+import Dashboard from "./Pages/Dashboard";
+import Doctors from "./Pages/Doctors";
 
-// New Pages
-import Dashboard from './Pages/Dashboard';
-import Doctors from './Pages/Doctors';
-
-import './App.css';
+import "./App.css";
 
 export default function App() {
-
-  // ================= EXISTING STATES =================
-=======
-import './App.css';
-
-export default function App() {
->>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
   const [sessionId] = useState(() => uuidv4());
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [patientContext, setPatientContext] = useState(null);
   const [showOnboarding, setShowOnboarding] = useState(true);
   const [stats, setStats] = useState(null);
 
-<<<<<<< HEAD
-  // 🔥 NEW: page navigation
   const [activePage, setActivePage] = useState("dashboard");
 
-  // ================= AUTH STATES =================
+  // 🔐 Auth
   const [user, setUser] = useState(() => {
-    const storedUser = localStorage.getItem("user");
-    return storedUser ? JSON.parse(storedUser) : null;
+    const stored = localStorage.getItem("user");
+    return stored ? JSON.parse(stored) : null;
   });
 
-  const [authPage, setAuthPage] = useState('login');
+  const [authPage, setAuthPage] = useState("login");
 
-  // ================= AUTH HANDLERS =================
   const handleLogin = (data) => {
     localStorage.setItem("user", JSON.stringify(data));
     setUser(data);
@@ -62,180 +44,118 @@ export default function App() {
 
   const logout = () => {
     localStorage.removeItem("user");
-    localStorage.removeItem("token");
     setUser(null);
   };
 
-  // ================= EXISTING LOGIC =================
-=======
->>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
+  // 🧠 Context setup
   const handleContextSubmit = useCallback((context) => {
     setPatientContext(context);
     setShowOnboarding(false);
 
-<<<<<<< HEAD
-=======
-    // Add a welcome message
->>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
-    const welcomeMsg = {
-      id: uuidv4(),
-      role: 'assistant',
-      content: `Hello${context.patientName ? `, ${context.patientName}` : ''}! I'm **CuraaLink**, your AI medical research assistant. I'm ready to help you explore research on **${context.disease}**.
+    setMessages([
+      {
+        id: uuidv4(),
+        role: "assistant",
+        content: `Hello ${context.patientName || ""}!
 
-I'll search thousands of peer-reviewed publications and active clinical trials to give you accurate, source-backed answers. Ask me anything — from treatment options to clinical trials near you.`,
-      isWelcome: true,
-      timestamp: new Date().toISOString(),
-    };
-<<<<<<< HEAD
+I'm CuraaLink, your AI medical research assistant.
 
-=======
->>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
-    setMessages([welcomeMsg]);
+I’ll help you explore research on ${context.disease} using trusted medical sources.
+
+Ask me anything — treatments, trials, insights 🚀`,
+        timestamp: new Date().toISOString(),
+      },
+    ]);
   }, []);
 
-  const sendMessage = useCallback(async (messageText) => {
-    if (!messageText.trim() || loading) return;
+  // 💬 Send message
+  const sendMessage = useCallback(
+    async (text) => {
+      if (!text.trim() || loading) return;
 
-    const userMsg = {
-      id: uuidv4(),
-      role: 'user',
-      content: messageText,
-      timestamp: new Date().toISOString(),
-    };
-
-    setMessages((prev) => [...prev, userMsg]);
-    setLoading(true);
-    setError(null);
-
-    try {
-<<<<<<< HEAD
-      const baseURL = 'https://healthiswealth-6.onrender.com';
-
-      const { data } = await axios.post(
-        `${baseURL}/api/chat`,
-        {
-          sessionId,
-          message: messageText,
-          disease: patientContext?.disease,
-          location: patientContext?.location,
-          patientName: patientContext?.patientName,
-          additionalContext: patientContext?.additionalContext,
-        },
-        {
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-=======
-      // const { data } = await axios.post('/api/chat', {
-      const baseURL = 'https://healthiswealth-6.onrender.com';
-      const { data } = await axios.post(`${baseURL}/api/chat`, {
-        sessionId,
-        message: messageText,
-        disease: patientContext?.disease,
-        location: patientContext?.location,
-        patientName: patientContext?.patientName,
-        additionalContext: patientContext?.additionalContext,
-      },{
-          headers: {
-    "Content-Type": "application/json"
-     } });
->>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
-
-      const assistantMsg = {
+      const userMsg = {
         id: uuidv4(),
-        role: 'assistant',
-        llm: data.llm,
-        publications: data.publications || [],
-        trials: data.trials || [],
-        content: data.llm?.researchInsights || '',
-        timestamp: new Date().toISOString(),
+        role: "user",
+        content: text,
       };
 
-      setMessages((prev) => [...prev, assistantMsg]);
-      setStats(data.stats);
-<<<<<<< HEAD
+      setMessages((prev) => [...prev, userMsg]);
+      setLoading(true);
 
-    } catch (err) {
-      const errMsg =
-        err.response?.data?.message || err.message || 'Request failed';
+      try {
+        const { data } = await axios.post(
+          "https://healthiswealth-6.onrender.com/api/chat",
+          {
+            sessionId,
+            message: text,
+            disease: patientContext?.disease,
+          }
+        );
 
-      setError(errMsg);
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: uuidv4(),
+            role: "assistant",
+            content: data.llm?.researchInsights || "No response",
+          },
+        ]);
 
-=======
-    } catch (err) {
-      const errMsg = err.response?.data?.message || err.message || 'Request failed';
-      setError(errMsg);
->>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: uuidv4(),
-          role: 'error',
-          content: `Error: ${errMsg}. Please check your server and try again.`,
-          timestamp: new Date().toISOString(),
-        },
-      ]);
-    } finally {
-      setLoading(false);
-    }
-  }, [loading, sessionId, patientContext]);
+        setStats(data.stats);
+      } catch (err) {
+        console.error("API Error:", err);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [loading, sessionId, patientContext]
+  );
 
-  const handleReset = useCallback(() => {
+  // 🔄 Reset
+  const handleReset = () => {
     setMessages([]);
     setPatientContext(null);
     setShowOnboarding(true);
-    setStats(null);
-    setError(null);
-  }, []);
+  };
 
-<<<<<<< HEAD
-  // ================= AUTH UI =================
+  // 🔐 Auth UI
   if (!user) {
-    if (authPage === 'login') {
-      return (
-        <Login
-          onLogin={handleLogin}
-          goToRegister={() => setAuthPage('register')}
-        />
-      );
-    }
-
-    return (
+    return authPage === "login" ? (
+      <Login
+        onLogin={handleLogin}
+        goToRegister={() => setAuthPage("register")}
+      />
+    ) : (
       <Register
         onRegister={handleRegister}
-        goToLogin={() => setAuthPage('login')}
+        goToLogin={() => setAuthPage("login")}
       />
     );
   }
 
-  // ================= MAIN DASHBOARD =================
+  // ✅ MAIN UI
   return (
     <div className="app-layout">
-      
-=======
-  return (
-    <div className="app-layout">
-      {showOnboarding && (
-        <OnboardingModal onSubmit={handleContextSubmit} />
-      )}
-
->>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
       <Sidebar
         patientContext={patientContext}
         stats={stats}
         messageCount={messages.length}
         onReset={handleReset}
-<<<<<<< HEAD
         onLogout={logout}
-        setActivePage={setActivePage}   // 🔥 navigation control
+        setActivePage={setActivePage}
       />
 
       <main className="app-main">
+        {/* Dashboard */}
+        {activePage === "dashboard" && (
+          <Dashboard
+            patientContext={patientContext}
+            messageCount={messages.length}
+            stats={stats}
+          />
+        )}
 
-        {/* 🏠 Dashboard */}
-        {activePage === "dashboard" && <Dashboard />}
-
-        {/* 💬 Chat */}
+        {/* Chat */}
         {activePage === "chat" && (
           <>
             {showOnboarding && (
@@ -243,7 +163,7 @@ I'll search thousands of peer-reviewed publications and active clinical trials t
             )}
 
             <ChatWindow
-              messages={messages || []}
+              messages={messages}
               loading={loading}
               patientContext={patientContext}
             />
@@ -258,31 +178,8 @@ I'll search thousands of peer-reviewed publications and active clinical trials t
           </>
         )}
 
-        {/* 🧑‍⚕️ Doctors */}
+        {/* Doctors */}
         {activePage === "doctors" && <Doctors />}
-
-=======
-      />
-
-      <main className="app-main">
-        <ChatWindow
-          messages={messages}
-          loading={loading}
-          patientContext={patientContext}
-        />
-
-        {!showOnboarding && (
-          <InputPanel
-            onSend={sendMessage}
-            loading={loading}
-            disabled={!patientContext}
-            suggestions={
-              messages.length > 0 &&
-              messages[messages.length - 1]?.llm?.followUpSuggestions
-            }
-          />
-        )}
->>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
       </main>
     </div>
   );

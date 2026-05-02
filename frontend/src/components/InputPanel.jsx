@@ -15,7 +15,6 @@ export default function InputPanel({ onSend, loading, disabled, suggestions }) {
   const [showQuick, setShowQuick] = useState(false);
   const textareaRef = useRef(null);
 
-<<<<<<< HEAD
   // ✅ EXISTING AUTO RESIZE
   useEffect(() => {
     if (textareaRef.current) {
@@ -39,15 +38,18 @@ export default function InputPanel({ onSend, loading, disabled, suggestions }) {
     };
   }, [onSend, loading, disabled]);
 
-=======
+  // Close quick prompts on click outside
   useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
-      textareaRef.current.style.height = Math.min(textareaRef.current.scrollHeight, 160) + 'px';
-    }
-  }, [value]);
+    if (!showQuick) return;
+    const handleClickOutside = (e) => {
+      if (!e.target.closest('.btn-quick-toggle') && !e.target.closest('.quick-prompts')) {
+        setShowQuick(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showQuick]);
 
->>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
   const handleSend = () => {
     const trimmed = value.trim();
     if (!trimmed || loading || disabled) return;
@@ -56,25 +58,22 @@ export default function InputPanel({ onSend, loading, disabled, suggestions }) {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    // Prevent sending if composing (IME) or shift is held
+    if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
       e.preventDefault();
       handleSend();
     }
   };
 
   const handleQuick = (prompt) => {
+    if (loading || disabled) return;
     onSend(prompt);
     setShowQuick(false);
   };
 
   const handleSuggestion = (s) => {
-<<<<<<< HEAD
-    // 🔥 IMPROVED: send directly instead of just filling
+    if (loading || disabled) return;
     onSend(s);
-=======
-    setValue(s);
-    textareaRef.current?.focus();
->>>>>>> 0e43532eec4721979e504ff8cff13981d6c113b9
   };
 
   return (
@@ -88,6 +87,7 @@ export default function InputPanel({ onSend, loading, disabled, suggestions }) {
               key={i}
               className="suggestion-pill"
               onClick={() => handleSuggestion(s)}
+              disabled={loading || disabled}
             >
               {s}
             </button>
@@ -112,7 +112,8 @@ export default function InputPanel({ onSend, loading, disabled, suggestions }) {
           className="btn-quick-toggle"
           onClick={() => setShowQuick(!showQuick)}
           title="Quick prompts"
-          disabled={disabled}
+          disabled={disabled || loading}
+          type="button"
         >
           ⚡
         </button>
@@ -139,6 +140,7 @@ export default function InputPanel({ onSend, loading, disabled, suggestions }) {
           onClick={handleSend}
           disabled={!value.trim() || loading || disabled}
           title="Send (Enter)"
+          type="button"
         >
           {loading ? (
             <span className="send-spinner" />
