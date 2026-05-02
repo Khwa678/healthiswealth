@@ -1,6 +1,6 @@
 import { useState } from "react";
 import API from "../api";
-import "../styles/auth.css";
+//import "../styles/auth.css";
 
 export default function Register({ onRegister, goToLogin }) {
   const [form, setForm] = useState({
