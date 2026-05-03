@@ -10,8 +10,8 @@ The platform allows users to input a medical condition and ask questions in natu
 
 ## 🌐 Live Demo
 
-🔗 Frontend: https://healthiswealth-7.onrender.com
-🔗 Backend API: https://healthiswealth-6.onrender.com/api/health
+🔗 Frontend: https://new-health-11.onrender.com
+🔗 Backend API: https://new-health-1.onrender.com
 
 ---
 
